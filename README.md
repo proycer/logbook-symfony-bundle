@@ -1,5 +1,11 @@
 <h1 align="center">LogBook Symfony Bundle <small>v0.1</small></h1>
 
+<p align="center">
+<a href="https://github.com/proycer/logbook-symfony-bundle"><img src="https://img.shields.io/github/issues/proycer/logbook-symfony-bundle" alt="Total Downloads"></a>
+<a href="https://github.com/proycer/logbook-symfony-bundle"><img src="https://img.shields.io/github/v/tag/proycer/logbook-symfony-bundle" alt="Latest Stable Version"></a>
+<a href="https://github.com/laravel/framework/actions"><img src="https://img.shields.io/github/license/proycer/logbook-symfony-bundle" alt="Build Status"></a>
+</p>
+
 ![Details!](src/Resources/assets/images/details.png "Log details")
 
 LogBook is a centralized web viewer for monolog logs files. 
