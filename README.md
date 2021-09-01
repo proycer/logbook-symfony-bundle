@@ -1,26 +1,28 @@
-# LogBook Symfony Bundle
+![Details!](src/Resources/assets/images/logo.png "Log details")
 
-LogBook is a centralized web log viewer for monolog logs files. 
+![Details!](src/Resources/assets/images/details.png "Log details")
+
+LogBook is a centralized web viewer for monolog logs files. 
 It allows you to list and view logs from local and external project, in one easy place with highlighting and level and channel filtering.
 
 ## Installation
 Install the package with:
 ```console
-composer require johnnestebann/logbook-symfony-bundle
+composer require proycer/logbook-symfony-bundle
 ```
-##  Configuration
+##  Two-step Configuration
 
-Create the routes yaml file `config/routes/evo_log_viewer_routes.yaml`
+Create the routes yaml file `config/routes/log_book.yaml`
 
 ```yaml
-evo_log_viewer:
-  resource: '@EvotodiLogViewerBundle/Resources/config/routes.xml'
+log_book:
+  resource: '@LogBookBundle/Resources/config/routes.xml'
   prefix: '/logs'
 ```
-Create the config yaml file `config/packages/evo_log_viewer.yaml`
+Create the config yaml file `config/packages/log_book.yaml`
 ```yaml
 # List of log files to show
-evo_log_viewer:
+log_book:
     log_files:
         # Unique identifier for the logfile
         somelog1:
@@ -37,7 +39,7 @@ evo_log_viewer:
             pattern: null
 
             # (Optional) PHP style date format of log file
-            date_format: 'Y-m-d H:i:s'
+            date_format: 'Y-m-d\TH:i:s.uP'
             
             # (Optional) Log level spelling. Case sensitive
             levels:
@@ -59,29 +61,44 @@ evo_log_viewer:
 ```
 ## Advanced Configuration
 
-#### pattern
+### pattern
 The default pattern is `'/\[(?P<date>.*)\] (?P<logger>\w+).(?P<level>\w+): (?P<message>[^\[\{].*[\]\}])/'`
 \
 You can change the regex pattern to match your log file but the pattern must include `P<date>`, `P<logger>`, `P<level>`, and `P<message>` as regex groups.
 \
 Example `'/\[(?P<date>.+)\] (?P<logger>\w+).(?P<level>\w+): (?P<message>.*)/'`
-\
-See ddtraceweb/monolog-parser for other examples but ommit `P<context>` and `P<extra>`
 
-#### days
+
+### days
 Setting days in the config to 0 will parse to whole log which is the default. Days set to 5 for example will parse the log until the date portion of the pattern
 if greater than DateTime('now') minus 5 days.
 
-#### date_format
-This should be the php date format of the date portion of the pattern. Default is Y-m-d H:i:s
+### date_format
+This should be the php date format of the date portion of the pattern. Default is Y-m-d\TH:i:s.uP
 /
 [PHP DateFormat](https://www.php.net/manual/en/function.date.php)
 
-#### levels
+### levels
 Override the default spelling for each level. e.g. WARNING -> WARN
 
+## Roadmap
+
+- [x] Improve UX/UI
+- [x] Live searching and filters
+- [x] Update to PHP 8
+- [ ] Automate installation
+- [ ] Show advance traceback
+- [ ] Improve logs loading (as json)
+- [ ] Improve searching and filter
+
 ## Thanks
-Thanks to ddtraceweb/monolog-parser and greenskies/web-log-viewer-bundle.
+- [monolog/monolog](https://github.com/Seldaek/monolog)
+- [ddtraceweb/monolog-parser](https://github.com/ddtraceweb/monolog-parser)
+- [evotodi/log-viewer-bundle](https://github.com/evotodi/log-viewer-bundle)
+- [Halfmoon front-end framework](https://www.gethalfmoon.com/)
+- [Tabler icons](https://tabler-icons.io/)
+- [JetBrains Mono Font](https://fonts.google.com/specimen/JetBrains+Mono)
+- [Dayjs plugin](https://github.com/iamkun/dayjs)
 
 ## Contributions
 Contributions are very welcome! 
