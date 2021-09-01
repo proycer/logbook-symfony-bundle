@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults public="false" />
+
+        <service id="log_book_list.log_list_service" class="Proycer\LogBook\Service\LogList">
+            <argument type="service" id="parameter_bag" />
+            <argument/>
+            <argument/>
+        </service>
+        <service id="Proycer\LogBook\Service\LogList" alias="log_book_list.log_list_service"/>
+
+        <service id="log_book_viewer.log_list_controller" class="Proycer\LogBook\Controller\LogListController" public="true">
+            <argument type="service" id="log_book_list.log_list_service" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+        <service id="Proycer\LogBook\Controller\LogListController" alias="log_book_viewer.log_list_controller"/>
+
+        <service id="log_book_viewer.log_viewer_controller" class="Proycer\LogBook\Controller\LogViewerController" public="true">
+            <argument type="service" id="log_book_list.log_list_service" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+        <service id="Proycer\LogBook\Controller\LogViewerController" alias="log_book_viewer.log_list_controller"/>
+
+    </services>
+</container>

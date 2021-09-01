@@ -8,5 +8,6 @@ build/logs/
 /tests/Controller/cache/
 /tests/cache/
 /config/
+.phpunit.result.cache
 .idea/
 var/

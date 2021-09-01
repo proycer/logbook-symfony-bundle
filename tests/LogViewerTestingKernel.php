@@ -1,8 +1,8 @@
 <?php
 
-namespace Evotodi\LogViewerBundle\Tests;
+namespace Proycer\LogBook\Tests;
 
-use Evotodi\LogViewerBundle\EvotodiLogViewerBundle;
+use Proycer\LogBook\LogBookBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel;
@@ -22,7 +22,7 @@ class LogViewerTestingKernel extends Kernel
 	public function registerBundles()
 	{
 		return [
-			new EvotodiLogViewerBundle(),
+			new LogBookBundle(),
 			new FrameworkBundle(),
 		];
 	}

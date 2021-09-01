@@ -1,9 +1,9 @@
 <?php
 
-namespace Evotodi\LogViewerBundle\Controller;
+namespace Proycer\LogBook\Controller;
 
-use Evotodi\LogViewerBundle\Reader\LogReader;
-use Evotodi\LogViewerBundle\Service\LogList;
+use Proycer\LogBook\Reader\LogReader;
+use Proycer\LogBook\Service\LogList;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
@@ -20,10 +20,10 @@ class LogViewerController extends AbstractController
 	}
 
 	/**
-     * @param Request $request
-     * @return Response
-     */
-    public function logViewAction(Request $request): Response
+	 * @param Request $request
+	 * @return Response
+	 */
+    public function __invoke(Request $request): Response
     {
         $id = urldecode($request->query->get('id'));
         $delete = filter_var($request->query->get('delete'), FILTER_VALIDATE_BOOLEAN);
@@ -36,16 +36,18 @@ class LogViewerController extends AbstractController
 
         if($delete) {
             unlink($logs[$id]['path']);
-            return $this->redirectToRoute('_log_viewer_list');
+            return $this->redirectToRoute('log_book_viewer_list');
         }
 
         $reader = new LogReader($logs[$id]['path'], $logs[$id]['date_format'], $logs[$id]['days']);
+
         if(!is_null($logs[$id]['pattern'])){
         	$reader->getParser()->registerPattern('NewPattern', $logs[$id]['pattern']);
         	$reader->setPattern('NewPattern');
         }
 
 	    $lines = [];
+
 	    foreach ($reader as $line){
 	    	try{
 				$lines[] = [
@@ -53,6 +55,8 @@ class LogViewerController extends AbstractController
 					'type' => $line['logger'],
 					'level' => $line['level'],
 					'message' => $line['message'],
+					'context' => $line['context'],
+					'extra' => $line['extra']
 				];
 		    }catch (Exception $e){
 	    		continue;
@@ -68,6 +72,6 @@ class LogViewerController extends AbstractController
 
 	    $context['levels'] = $logs[$id]['levels'];
 
-        return $this->render('@EvotodiLogViewer/logView.html.twig', $context);
+        return $this->render('@LogBook/logView.html.twig', $context);
     }
 }

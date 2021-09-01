@@ -1,13 +1,12 @@
 <?php
 
-namespace Evotodi\LogViewerBundle\Controller;
+namespace Proycer\LogBook\Controller;
 
-use Evotodi\LogViewerBundle\Service\LogList;
+use Proycer\LogBook\Service\LogList;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
-class LogListController extends AbstractController implements ServiceSubscriberInterface
+class LogListController extends AbstractController
 {
 	private LogList $logList;
 
@@ -19,10 +18,11 @@ class LogListController extends AbstractController implements ServiceSubscriberI
 	/**
 	 * @return Response
 	 */
-    public function logListAction(): Response
+    public function __invoke(): Response
     {
 		$logs = $this->logList->getLogList();
-        return $this->render('@EvotodiLogViewer/listView.html.twig', [
+
+        return $this->render('@LogBook/listView.html.twig', [
             'logs' => $logs
         ]);
     }

@@ -4,12 +4,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing https://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="_log_viewer_list" path="/">
-        <default key="_controller">evotodi_log_viewer.log_list_controller::logListAction</default>
+    <route id="log_book_viewer_list" path="/">
+        <default key="_controller">log_book_viewer.log_list_controller::__invoke</default>
     </route>
 
-    <route id="_log_viewer_viewer" path="/viewer">
-        <default key="_controller">evotodi_log_viewer.log_viewer_controller::logViewAction</default>
+    <route id="log_book_viewer_detail" path="/viewer">
+        <default key="_controller">log_book_viewer.log_viewer_controller::__invoke</default>
     </route>
 
 </routes>

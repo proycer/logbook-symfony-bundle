@@ -1,20 +1,11 @@
 <?php
 
-/*
- * This file is part of the monolog-parser package.
- *
- * (c) Robert Gruendler <r.gruendler@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Evotodi\LogViewerBundle\Reader;
+namespace Proycer\LogBook\Reader;
 
 use ArrayAccess;
 use Countable;
-use Evotodi\LogViewerBundle\Parser\LineLogParser;
-use Evotodi\LogViewerBundle\Parser\LogParserInterface;
+use Proycer\LogBook\Parser\LineLogParser;
+use Proycer\LogBook\Parser\LogParserInterface;
 use Exception;
 use Iterator;
 use RuntimeException;
@@ -22,36 +13,32 @@ use SplFileObject;
 
 class LogReader extends AbstractReader implements Iterator, ArrayAccess, Countable
 {
-    /**
-     * @var SplFileObject
-     */
+    /** @var SplFileObject */
     protected $file;
 
-    /**
-     * @var integer
-     */
+    /** @var int */
     protected $lineCount;
 
-    /**
-     * @var $parser LogParserInterface
-     */
+    /** @var LineLogParser */
     protected $parser;
 
     public $days;
+
     public $pattern;
+
 	public $dateFormat;
 
-
-	/**
-	 * @param        $file
-	 * @param int $days
-	 * @param string $pattern
+    /**
+     * @param        $file
+     * @param int $days
+     * @param string $pattern
 	 * @param $dateFormat
-	 */
-    public function __construct($file, $dateFormat, $days = 1, $pattern = 'default')
+     */
+    public function __construct($file, $dateFormat, int $days = 1, string $pattern = 'default')
     {
         $this->file = new SplFileObject($file, 'r');
         $i          = 0;
+
         while (!$this->file->eof()) {
             $this->file->current();
             $this->file->next();
@@ -78,7 +65,7 @@ class LogReader extends AbstractReader implements Iterator, ArrayAccess, Countab
     /**
      * @param string $pattern
      */
-    public function setPattern( $pattern = 'default' )
+    public function setPattern(string $pattern = 'default' ): void
     {
         $this->pattern = $pattern;
     }
@@ -86,15 +73,15 @@ class LogReader extends AbstractReader implements Iterator, ArrayAccess, Countab
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->lineCount < $offset;
     }
 
-	/**
-	 * {@inheritdoc}
+    /**
+     * {@inheritdoc}
 	 * @throws Exception
-	 */
+     */
     public function offsetGet($offset)
     {
         $key = $this->file->key();
@@ -109,7 +96,7 @@ class LogReader extends AbstractReader implements Iterator, ArrayAccess, Countab
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new RuntimeException("LogReader is read-only.");
     }
@@ -117,7 +104,7 @@ class LogReader extends AbstractReader implements Iterator, ArrayAccess, Countab
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new RuntimeException("LogReader is read-only.");
     }
@@ -125,7 +112,7 @@ class LogReader extends AbstractReader implements Iterator, ArrayAccess, Countab
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->file->rewind();
     }
@@ -133,15 +120,15 @@ class LogReader extends AbstractReader implements Iterator, ArrayAccess, Countab
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next(): void
     {
         $this->file->next();
     }
 
-	/**
-	 * {@inheritdoc}
+    /**
+     * {@inheritdoc}
 	 * @throws Exception
-	 */
+     */
     public function current()
     {
         return $this->parser->parse($this->file->current(), $this->dateFormat, $this->days, $this->pattern);
@@ -158,7 +145,7 @@ class LogReader extends AbstractReader implements Iterator, ArrayAccess, Countab
     /**
      * {@inheritdoc}
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->file->valid();
     }
@@ -166,7 +153,7 @@ class LogReader extends AbstractReader implements Iterator, ArrayAccess, Countab
     /**
      * {@inheritdoc}
      */
-    public function count()
+    public function count(): int
     {
         return $this->lineCount;
     }

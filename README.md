@@ -1,13 +1,12 @@
-# Simple log Viewer Symfony Bundle
+# LogBook Symfony Bundle
 
-LogViewerBundle is a basic log viewer for symfony. 
-It allows you to list and view all of the symfony logs or external logs in one easy 
-place with level highlighting and level filtering.
+LogBook is a centralized web log viewer for monolog logs files. 
+It allows you to list and view logs from local and external project, in one easy place with highlighting and level and channel filtering.
 
 ## Installation
 Install the package with:
 ```console
-composer require evotodi/log-viewer-bundle
+composer require johnnestebann/logbook-symfony-bundle
 ```
 ##  Configuration
 

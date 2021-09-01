@@ -1,7 +1,6 @@
 <?php
 
-namespace Evotodi\LogViewerBundle\Service;
-
+namespace Proycer\LogBook\Service;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Finder\Finder;
@@ -9,8 +8,11 @@ use Symfony\Component\Finder\Finder;
 class LogList
 {
 	private ParameterBagInterface $parameterBag;
+
 	private array $logFiles;
+
 	private bool $useAppLogs;
+
 	protected array $levels = [
 		"debug" => "DEBUG",
         "info" => "INFO",
@@ -21,6 +23,7 @@ class LogList
         "critical" => "CRITICAL",
         "emergency" => "EMERGENCY",
 	];
+
 	public function __construct(ParameterBagInterface $parameterBag, array $logFiles, bool $useAppLogs = false)
 	{
 		$this->parameterBag = $parameterBag;
@@ -28,14 +31,18 @@ class LogList
 		$this->useAppLogs = $useAppLogs;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getLogList(): array
     {
 	    $logs = [];
 		$id = 0;
 
-	    if($this->useAppLogs){
+	    if ($this->useAppLogs){
 		    $finder = new Finder();
 		    $finder->files()->in($this->parameterBag->get('kernel.logs_dir'));
+
 		    foreach ($finder as $file){
 			    $logs[] = ['id' => $id, 'name' => $file->getFilename(), 'path' => $file->getRealPath(), 'pattern' => null, 'days' => 0, 'date_format' => 'Y-m-d H:i:s', 'exists' => true, 'levels' => $this->levels];
 			    $id++;
