@@ -1,4 +1,4 @@
-![Details!](src/Resources/assets/images/logo.png "Log details")
+<h1 align="center">LogBook Symfony Bundle <small>v0.1</small></h1>
 
 ![Details!](src/Resources/assets/images/details.png "Log details")
 
