@@ -9,7 +9,7 @@ use RuntimeException;
 class LineLogParser implements LogParserInterface
 {
     /**
-     * @var string
+     * @var array
      */
     protected $pattern = array(
         'default' => '/\[(?P<date>.*)\] (?P<logger>[\w-]+).(?P<level>\w+): (?P<message>[^\[\{]+) (?P<context>[\[\{].*[\]\}]) (?P<extra>[\[\{].*[\]\}])/',
