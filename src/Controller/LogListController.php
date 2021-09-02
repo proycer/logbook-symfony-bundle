@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LogListController extends AbstractController
 {
-	private LogList $logList;
+	/** @var LogList */
+	private $logList;
 
 	public function __construct(LogList $logList)
 	{
