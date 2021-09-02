@@ -12,7 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LogViewerController extends AbstractController
 {
-	private LogList $logList;
+	/** @var LogList */
+	private $logList;
 
 	public function __construct(LogList $logList)
 	{
