@@ -7,21 +7,25 @@ use Symfony\Component\Finder\Finder;
 
 class LogList
 {
-	private ParameterBagInterface $parameterBag;
+	/** @var ParameterBagInterface */
+	private $parameterBag;
 
-	private array $logFiles;
+	/** @var array */
+	private $logFiles;
 
-	private bool $useAppLogs;
+	/** @var bool */
+	private $useAppLogs;
 
-	protected array $levels = [
+	/** @var array */
+	protected $levels = [
 		"debug" => "DEBUG",
-        "info" => "INFO",
-        "notice" => "NOTICE",
-        "warning" => "WARNING",
-        "error" => "ERROR",
-        "alert" => "ALERT",
-        "critical" => "CRITICAL",
-        "emergency" => "EMERGENCY",
+		"info" => "INFO",
+		"notice" => "NOTICE",
+		"warning" => "WARNING",
+		"error" => "ERROR",
+		"alert" => "ALERT",
+		"critical" => "CRITICAL",
+		"emergency" => "EMERGENCY",
 	];
 
 	public function __construct(ParameterBagInterface $parameterBag, array $logFiles, bool $useAppLogs = false)
